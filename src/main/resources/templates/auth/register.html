@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Sign up')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: nav}"></div>
+
+<main class="page-narrow">
+    <div class="page-header">
+        <div class="eyebrow">Get started</div>
+        <h1>Create your account</h1>
+        <p class="page-subtitle">Choose whether you're listing gear or renting it &#8212; you can't switch later.</p>
+    </div>
+
+    <form class="form-card" th:action="@{/auth/register}" th:object="${registerRequest}" method="post">
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" th:field="*{username}" autocomplete="username"/>
+            <div class="field-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" th:field="*{email}" autocomplete="email"/>
+            <div class="field-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="fullName">Full name</label>
+            <input type="text" id="fullName" th:field="*{fullName}" autocomplete="name"/>
+            <div class="field-error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" th:field="*{password}" autocomplete="new-password"/>
+            <div class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm password</label>
+            <input type="password" id="confirmPassword" th:field="*{confirmPassword}" autocomplete="new-password"/>
+            <div class="field-error" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
+        </div>
+
+        <div class="form-group">
+            <label>I want to&#8230;</label>
+            <div class="radio-options">
+                <label th:each="r : ${roles}">
+                    <input type="radio" th:field="*{role}" th:value="${r}"/>
+                    <span th:text="${r.name() == 'OWNER'} ? 'List my equipment' : 'Rent equipment'"></span>
+                </label>
+            </div>
+            <div class="field-error" th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Create account</button>
+        </div>
+        <p class="helper-text">Already have an account? <a th:href="@{/auth/login}">Log in</a></p>
+    </form>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Log in')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: nav}"></div>
+
+<main class="page-narrow">
+    <div class="page-header">
+        <div class="eyebrow">Welcome back</div>
+        <h1>Log in</h1>
+    </div>
+
+    <div class="alert alert-success" th:if="${param.registered}">
+        Account created &#8212; you can log in now.
+    </div>
+    <div class="alert alert-error" th:if="${param.error}">
+        Incorrect username or password.
+    </div>
+
+    <form class="form-card" th:action="@{/auth/login}" method="post">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" autocomplete="username"/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" autocomplete="current-password"/>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Log in</button>
+        </div>
+        <p class="helper-text">New to GearShare? <a th:href="@{/auth/register}">Sign up</a></p>
+    </form>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>
