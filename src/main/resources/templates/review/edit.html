@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Edit Review')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: nav}"></div>
+
+<main class="page-narrow">
+    <div class="page-header">
+        <div class="eyebrow">Edit review</div>
+        <h1 th:text="${review.booking.equipment.name}">Equipment name</h1>
+    </div>
+
+    <form class="form-card" th:action="@{/reviews/{id}/edit(id=${review.id})}" th:object="${reviewFormRequest}" method="post">
+
+        <div class="form-group">
+            <label for="rating">Rating (1&#8211;5)</label>
+            <select id="rating" th:field="*{rating}">
+                <option value="5">5 &#8211; Excellent</option>
+                <option value="4">4 &#8211; Good</option>
+                <option value="3">3 &#8211; Average</option>
+                <option value="2">2 &#8211; Below average</option>
+                <option value="1">1 &#8211; Poor</option>
+            </select>
+            <div class="field-error" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="comment">Comment (optional)</label>
+            <textarea id="comment" th:field="*{comment}"></textarea>
+            <div class="field-error" th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+            <form th:action="@{/reviews/{id}/delete(id=${review.id})}" method="post" class="inline-form">
+                <button type="submit" class="btn btn-danger">Delete review</button>
+            </form>
+        </div>
+    </form>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>
