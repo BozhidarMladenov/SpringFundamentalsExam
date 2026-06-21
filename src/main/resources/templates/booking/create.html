@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Request Booking')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: nav}"></div>
+
+<main class="page-narrow">
+    <div class="page-header">
+        <div class="eyebrow">Booking request</div>
+        <h1 th:text="${equipment.name}">Equipment name</h1>
+        <p class="page-subtitle">$<span th:text="${equipment.dailyPrice}">0</span>/day &#183; <span th:text="${equipment.location}">Location</span></p>
+    </div>
+
+    <form class="form-card" th:action="@{/bookings/new/{id}(id=${equipment.id})}" th:object="${bookingFormRequest}" method="post">
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="startDate">Start date</label>
+                <input type="date" id="startDate" th:field="*{startDate}"/>
+                <div class="field-error" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></div>
+            </div>
+            <div class="form-group">
+                <label for="endDate">End date</label>
+                <input type="date" id="endDate" th:field="*{endDate}"/>
+                <div class="field-error" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></div>
+            </div>
+        </div>
+
+        <p class="helper-text">The owner needs to approve your request before it's confirmed. You'll see the total price once it's approved.</p>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Send request</button>
+            <a class="btn btn-secondary" th:href="@{/equipment/{id}(id=${equipment.id})}">Cancel</a>
+        </div>
+    </form>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>
