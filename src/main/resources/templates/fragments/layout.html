@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head(pageTitle)">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${pageTitle} + ' | GearShare'">GearShare</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+
+<header class="site-header" th:fragment="nav">
+    <div class="nav-inner">
+        <a class="brand" th:href="@{/}">GearShare</a>
+        <nav class="nav-links">
+            <a th:href="@{/equipment}">Browse Equipment</a>
+            <th:block sec:authorize="hasRole('OWNER')">
+                <a th:href="@{/equipment/mine}">My Listings</a>
+                <a th:href="@{/equipment/create}">List Equipment</a>
+                <a th:href="@{/bookings/requests}">Booking Requests</a>
+            </th:block>
+            <th:block sec:authorize="hasRole('RENTER')">
+                <a th:href="@{/bookings/mine}">My Bookings</a>
+            </th:block>
+            <th:block sec:authorize="isAuthenticated()">
+                <span class="nav-user" sec:authentication="name"></span>
+                <form th:action="@{/auth/logout}" method="post" class="inline-form">
+                    <button type="submit" class="link-button">Logout</button>
+                </form>
+            </th:block>
+            <th:block sec:authorize="!isAuthenticated()">
+                <a th:href="@{/auth/login}">Login</a>
+                <a th:href="@{/auth/register}" class="cta">Sign up</a>
+            </th:block>
+        </nav>
+    </div>
+</header>
+<footer class="site-footer" th:fragment="footer">
+    <p>&#169; 2026 GearShare &#8212; Spring Fundamentals Individual Project</p>
+</footer>
+</body>
+</html>

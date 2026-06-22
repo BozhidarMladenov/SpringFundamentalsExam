@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Home')}"></head>
+<body>
+<div th:replace="~{fragments/layout :: nav}"></div>
+
+<main class="page">
+    <section class="hero">
+        <div class="hero-tag">Peer-to-peer equipment rental</div>
+        <h1>Borrow the gear. Skip the price tag.</h1>
+        <p>GearShare connects people who own cameras, tools, and outdoor
+            equipment with neighbors who need them for a weekend, a shoot,
+            or a single job. List what you're not using. Rent what you need.</p>
+        <div class="hero-actions">
+            <a class="btn btn-primary" th:href="@{/equipment}">Browse equipment</a>
+            <a class="btn btn-on-dark" th:href="@{/auth/register}">Create an account</a>
+        </div>
+    </section>
+
+    <section class="feature-grid">
+        <div class="feature-card">
+            <h3>List your gear</h3>
+            <p>Owners post equipment with a daily rate, a location, and a
+                short description. Toggle availability whenever it's busy.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Book with dates</h3>
+            <p>Renters pick a start and end date. GearShare checks for
+                overlapping bookings automatically before confirming.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Review after pickup</h3>
+            <p>Once a rental is marked complete, the renter can leave a
+                rating and a short note for the next person.</p>
+        </div>
+    </section>
+
+    <section class="form-card">
+        <h2>How a rental moves through the system</h2>
+        <p class="page-subtitle">A booking request is <strong>pending</strong>
+            until the owner makes a decision. The owner can
+            <strong>approve</strong> or <strong>reject</strong> it. Once the
+            rental period has passed, the owner marks it
+            <strong>completed</strong>, which unlocks reviews for the renter.</p>
+    </section>
+</main>
+
+<div th:replace="~{fragments/layout :: footer}"></div>
+</body>
+</html>
